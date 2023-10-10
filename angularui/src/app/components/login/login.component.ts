@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import ValidateForm from 'src/app/helpers/validateform';
 import { AuthService} from 'src/app/services/auth.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = "fa-eye-slash";
   loginForm!: FormGroup;
-
+  
   constructor(private fb: FormBuilder, private auth: AuthService,private router: Router) {}
 
   ngOnInit(): void {

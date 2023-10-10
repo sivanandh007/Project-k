@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular-devkit/build-angular": "^16.2.5",
+    "ngx-toastr": "^17.0.2"
+  }
+}

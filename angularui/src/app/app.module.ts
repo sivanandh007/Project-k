@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgToastModule } from 'ng-angular-popup';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -17,7 +18,7 @@ import { NgToastModule } from 'ng-angular-popup';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,10 @@
+.city-button {
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .city-button:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  

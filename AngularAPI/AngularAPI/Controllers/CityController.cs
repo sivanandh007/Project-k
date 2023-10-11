@@ -23,9 +23,10 @@ namespace MovieTicketBookingApp.Controllers
         [HttpGet]
         public IActionResult GetCities()
         {
-            var cities = _authcontext.Cities;
-            return Ok(cities);
+            var cityNames = _authcontext.Cities.Select(city => city.CityName).ToList();
+            return Ok(cityNames);
         }
+
 
         // GET: api/City/{id}
         [HttpGet("{id}")]

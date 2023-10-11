@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.loginForm.value).subscribe({
         next: (res) => {
           alert(res.message);
+          this.auth.storeToken
           this.loginForm.reset(); // Corrected line to reset the form
           this.router.navigate(['dashboard']);
         },

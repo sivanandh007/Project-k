@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AngularAPI.Context; // Update the namespace
-using MovieTicketBookingApp.Models;
+using AngularAPI.Models;
 
 namespace MovieTicketBookingApp.Controllers
 {
@@ -39,21 +39,53 @@ namespace MovieTicketBookingApp.Controllers
 
             return Ok(movie);
         }
+        [HttpGet("ByCity/{cityID}")]
+        public IActionResult GetMoviesByCity(int cityID)
+        {
+            var movies = _context.Movies
+                .Where(m => m.CityID == cityID)
+                .Join(
+                    _context.Cities,
+                    movie => movie.CityID,
+                    city => city.CityID,
+                    (movie, city) => new
+                    {
+                        MovieID = movie.MovieId,
+                        Title = movie.Title,
+                        Language = movie.Language,
+                        DurationMinutes = movie.DurationMinutes,
+                        // Add other movie properties you need
+                        CityName = city.CityName, // Include the city name
+                        PosterUrl = movie.PosterUrl
+                    }
+                )
+                .ToList();
+
+            return Ok(movies);
+        }
+
 
         // POST: api/Movie
         [HttpPost]
-        public IActionResult CreateMovie([FromBody] Movie movie)
+        public IActionResult CreateMovie([FromBody] Movie movie, int CityID)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            movie.ReleaseDate = movie.ReleaseDate.Date;
+            // Check if the city with the specified CityID exists
+            var city = _context.Cities.Find(CityID);
+            if (city == null)
+            {
+                return NotFound("City not found");
+            }
+
+            // Assign the CityID to the movie
+            movie.CityID = CityID;
 
             _context.Movies.Add(movie);
             _context.SaveChanges();
-
 
             return CreatedAtAction(nameof(GetMovie), new { id = movie.MovieId }, movie);
         }

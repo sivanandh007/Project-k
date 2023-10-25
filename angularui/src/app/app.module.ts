@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgToastModule } from 'ng-angular-popup';
-import { ToastrModule } from 'ngx-toastr';
+import { MoviesComponent } from './components/movies/movies.component';
+import { MovieService } from 'src/app/services/movie.service';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -19,15 +21,20 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     SignupComponent,
     DashboardComponent,
+    MoviesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgToastModule
+    NgToastModule,
+    FormsModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [
+    MovieService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,19 +1,15 @@
-﻿// City.cs
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieTicketBookingApp.Models
+namespace AngularAPI.Models
 {
     public class City
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // This line is important
-        public int CityId { get; set; }
+        public int CityID { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string CityName { get; set; }
 
-        // Other city-related properties can be added here
+        public ICollection<Movie> Movies { get; set; }
     }
 }

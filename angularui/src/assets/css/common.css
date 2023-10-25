@@ -111,8 +111,10 @@ img {
     content: "or connect with";
     position: absolute;
     top: -14px; /* Adjust positioning */
-    left: 45%; /* Center it */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Center it precisely */
     background-color: #fff;
     padding: 0 10px; /* Add padding */
     font-weight: bold; /* Make it bold */
 }
+

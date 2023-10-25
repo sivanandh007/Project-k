@@ -1,0 +1,34 @@
+/* Add custom styles here */
+
+/* Style for navbar */
+.navbar {
+  margin-bottom: 20px;
+}
+
+/* Style for movie cards */
+.card {
+  max-width: 20rem;
+  margin: 10px;
+}
+
+/* Style for language buttons */
+.btn-group {
+  margin-right: 20px;
+}
+
+/* Style for movie posters */
+.card-img-top {
+  max-height: 300px;
+  height: auto;
+}
+
+/* Style for movie titles */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Style for book ticket buttons */
+.btn-primary {
+  width: 100%;
+}

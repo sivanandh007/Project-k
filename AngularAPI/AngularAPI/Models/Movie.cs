@@ -1,9 +1,7 @@
-﻿// Movie.cs
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace MovieTicketBookingApp.Models
+namespace AngularAPI.Models
 {
     public class Movie
     {
@@ -20,10 +18,16 @@ namespace MovieTicketBookingApp.Models
 
         public int DurationMinutes { get; set; }
 
-        [DataType(DataType.Date)] // Use DataType.Date to store only the date
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReleaseDate { get; set; }
 
-        // Other movie-related properties can be added here
+        [StringLength(1000)] 
+        public string PosterUrl { get; set; } 
+
+        // Foreign key for City
+        public int CityID { get; set; }
+
+        // Navigation property to City
+        [ForeignKey("CityID")]
+        public City City { get; set; }
     }
 }

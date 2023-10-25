@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CityService } from 'src/app/services/city.service'; // Replace 'path-to-city-service' with the actual path
+import { AuthService } from 'src/app/services/auth.service';
+import { CityService } from 'src/app/services/city.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserStoreService } from 'src/app/services/user-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,21 +11,61 @@ import { CityService } from 'src/app/services/city.service'; // Replace 'path-to
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  cities: string[] = []; // Array to store city names
-  selectedCity: string | null = null; // Store the selected city
+  cities: any[] = [];
+  selectedCity: string | null = null;
+  selectedCityID: number | null = null;
+  filteredCities: any[] = [];
+  cityFilter: string = '';
+  public users: any[] = [];
+  public fullName: string = '';
 
-  constructor(private cityService: CityService) {} // Inject the CityService
+  constructor(
+    private cityService: CityService,
+    private auth: AuthService,
+    private userstore: UserStoreService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // Fetch city names from the backend
-    this.cityService.getCities().subscribe((data: string[]) => {
-      this.cities = data;
+    this.cityService.getCities().subscribe((data: any) => {
+      if (Array.isArray(data.$values)) {
+        this.cities = data.$values;
+      } else {
+        console.error('Unexpected data structure:', data);
+      }
+      this.filteredCities = this.cities;
+      console.log(this.cities);
+    });
+    
+    this.fullName = this.auth.getfullNameFromToken();
+    this.userstore.getFullNameFromStore().subscribe(val => {
+      let fullNameFromToken = this.auth.getfullNameFromToken();
+      this.fullName = val || fullNameFromToken;
     });
   }
 
-  selectCity(city: string) {
-    // Handle the city selection here
-    this.selectedCity = city;
-    // You can add further actions related to city selection, like navigating to the next page, etc.
+  selectCity(city: any) {
+    // Extract the city ID
+    this.selectedCityID = city.cityID;
+    
+    // Set the selected city name
+    this.selectedCity = city.cityName;
+    
+    // Use the Angular router to navigate to the "movies" route with the selected city as a parameter
+    this.router.navigate(['/movies', this.selectedCityID]);
+  }
+
+  filterCities() {
+    if (this.cityFilter) {
+      this.filteredCities = this.cities.filter(city =>
+        city.cityName.toLowerCase().includes(this.cityFilter.toLowerCase())
+      );
+    } else {
+      this.filteredCities = this.cities;
+    }
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 }

@@ -1,6 +1,7 @@
-﻿using AngularAPI.Models;
+﻿using AngularAPI.Migrations;
+using AngularAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using MovieTicketBookingApp.Models;
+using System.Reflection.Emit;
 
 namespace AngularAPI.Context
 {
@@ -11,18 +12,29 @@ namespace AngularAPI.Context
         }
 
         public DbSet<User> Users { get; set; }
+
         public DbSet<City> Cities { get; set; }
 
         public DbSet<Movie> Movies { get; set; }
 
-        public DbSet<Theater> Theaters { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             modelbuilder.Entity<User>().ToTable("users");
-            modelbuilder.Entity<City>().ToTable("Cities");
-            modelbuilder.Entity<Movie>().ToTable("Movies");
-            modelbuilder.Entity<Theater>().ToTable("Theaters");
+            modelbuilder.Entity<City>().ToTable("cities");
+            modelbuilder.Entity<Movie>().ToTable("movies");
+
+            modelbuilder.Entity<Movie>()
+                   .HasOne(m => m.City)
+                   .WithMany(c => c.Movies)
+                   .HasForeignKey(m => m.CityID);
+
+
+
+
+
         }
 
 

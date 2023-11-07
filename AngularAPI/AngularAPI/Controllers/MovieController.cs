@@ -54,9 +54,9 @@ namespace MovieTicketBookingApp.Controllers
                         Title = movie.Title,
                         Language = movie.Language,
                         DurationMinutes = movie.DurationMinutes,
-                        // Add other movie properties you need
                         CityName = city.CityName, // Include the city name
-                        PosterUrl = movie.PosterUrl
+                        PosterUrl = movie.PosterUrl,
+                        ReleaseDate = movie.ReleaseDate
                     }
                 )
                 .ToList();
@@ -121,5 +121,8 @@ namespace MovieTicketBookingApp.Controllers
 
             return NoContent();
         }
+
+       
+
     }
 }

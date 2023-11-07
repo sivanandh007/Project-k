@@ -8,10 +8,13 @@ import { CityService } from './city.service';
 export class MovieService {
   private baseUrl = 'https://localhost:44348';
 
+  
+
   constructor(private http: HttpClient, private city: CityService) {}
 
   getMoviesByCity(cityID: number) {
     const url = `${this.baseUrl}/api/Movie/ByCity/${cityID}`;
     return this.http.get(url);
+    
   }
 }

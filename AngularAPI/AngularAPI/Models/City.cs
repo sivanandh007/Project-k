@@ -10,6 +10,6 @@ namespace AngularAPI.Models
         [Required]
         public string CityName { get; set; }
 
-        public ICollection<Movie> Movies { get; set; }
+        
     }
 }

@@ -17,6 +17,10 @@ namespace AngularAPI.Context
 
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Theater> Theater { get; set; }
+
+        public DbSet<Screens> Screens { get; set; }
+
 
 
 
@@ -25,16 +29,9 @@ namespace AngularAPI.Context
             modelbuilder.Entity<User>().ToTable("users");
             modelbuilder.Entity<City>().ToTable("cities");
             modelbuilder.Entity<Movie>().ToTable("movies");
-
-            modelbuilder.Entity<Movie>()
-                   .HasOne(m => m.City)
-                   .WithMany(c => c.Movies)
-                   .HasForeignKey(m => m.CityID);
-
-
-
-
-
+            modelbuilder.Entity<Theater>().ToTable("Theaters");
+            modelbuilder.Entity<Screens>().ToTable("Screens");
+            
         }
 
 

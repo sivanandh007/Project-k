@@ -27,17 +27,17 @@
 <!-- Movies list -->
 <div class="container mt-4">
   <div class="row">
-      <div class="col-md-4" *ngFor="let movie of filteredMovies">
-          <div class="card mb-10">
-              <img [src]="movie.posterUrl" class="card-img-top" alt="{{ movie.title }}">
-              <div class="card-body">
-                  <h5 class="card-title">{{ movie.title }}</h5>
-                  <p class="card-text">Language: {{ movie.language }}</p>
-                  <p class="card-text">Duration: {{ movie.durationMinutes }} minutes</p>
-                  <p class="card-text">Release Date: {{ movie.releaseDate | date:'shortDate' }}</p>
-                  <button class="btn btn-primary" (click)="bookTicket(movie)">Book Tickets</button>
-              </div>
-          </div>
+    <div class="col-md-3" *ngFor="let movie of filteredMovies">
+      <div class="card mb-10">
+        <div class="card-poster" [style.background-image]="'url(' + movie.posterUrl + ')'"></div>
+        <div class="card-body">
+          <h5 class="card-title">{{ movie.title }}</h5>
+          <p class="card-text">Language: {{ movie.language }}</p>
+          <p class="card-text">Duration: {{ movie.durationMinutes }} minutes</p>
+          <p class="card-text">Release Date: {{ movie.releaseDate | date:'shortDate' }}</p>
+          <button class="btn btn-primary" (click)="bookTicket(movie.movieID)">Book Tickets</button>
+        </div>
       </div>
+    </div>
   </div>
 </div>

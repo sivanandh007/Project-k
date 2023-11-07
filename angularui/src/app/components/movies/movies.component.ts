@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-movies',
@@ -13,6 +15,8 @@ export class MoviesComponent implements OnInit {
   selectedCityID: number = 1; // Change to selectedCityID as a number
   movieFilter: string = '';
   selectedLanguage: string = '';
+  movieId: number | null = null;
+  
 
   // Define a mapping of city IDs to city names
   cityMappings: { [key: number]: string } = {
@@ -24,7 +28,9 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router ,
+
   ) {}
 
   ngOnInit() {
@@ -37,6 +43,7 @@ export class MoviesComponent implements OnInit {
         if (Array.isArray(data.$values)) {
           this.movies = data.$values;
           this.filteredMovies = this.movies;
+          console.log(this.movies)
         } else {
           console.error('Unexpected data structure:', data);
         }
@@ -66,8 +73,12 @@ export class MoviesComponent implements OnInit {
     );
   }
 
-  bookTicket(movie: any) {
+  bookTicket(movieId: number) {
     // Implement the logic to book tickets for the selected movie
-    // You can navigate to a ticket booking page or handle the booking process here.
+    // You can navigate to the theaters component with the movie ID as a parameter
+    console.log('movieID:', movieId);
+  this.router.navigate(['theaters', movieId]);
+    
   }
-}
+  }
+  

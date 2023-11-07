@@ -20,8 +20,8 @@ namespace AngularAPI.Models
 
         public DateTime ReleaseDate { get; set; }
 
-        [StringLength(1000)] 
-        public string PosterUrl { get; set; } 
+        [StringLength(1000)]
+        public string PosterUrl { get; set; }
 
         // Foreign key for City
         public int CityID { get; set; }

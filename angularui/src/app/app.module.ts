@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -12,8 +11,7 @@ import { NgToastModule } from 'ng-angular-popup';
 import { MoviesComponent } from './components/movies/movies.component';
 import { MovieService } from 'src/app/services/movie.service';
 import { CommonModule } from '@angular/common';
-
-
+import { TheatersComponent } from './components/theaters/theaters.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +20,7 @@ import { CommonModule } from '@angular/common';
     SignupComponent,
     DashboardComponent,
     MoviesComponent,
+    TheatersComponent
   ],
   imports: [
     BrowserModule,

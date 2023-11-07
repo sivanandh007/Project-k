@@ -77,6 +77,60 @@ namespace AngularAPI.Migrations
                     b.ToTable("movies", (string)null);
                 });
 
+            modelBuilder.Entity("AngularAPI.Models.Screens", b =>
+                {
+                    b.Property<int>("ScreenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScreenId"));
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ScreenName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TheaterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ScreenId");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("TheaterId");
+
+                    b.ToTable("Screens", (string)null);
+                });
+
+            modelBuilder.Entity("AngularAPI.Models.Theater", b =>
+                {
+                    b.Property<int>("TheaterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TheaterId"));
+
+                    b.Property<int>("CityID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("TheaterName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("TheaterId");
+
+                    b.HasIndex("CityID");
+
+                    b.ToTable("Theaters", (string)null);
+                });
+
             modelBuilder.Entity("AngularAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -114,7 +168,7 @@ namespace AngularAPI.Migrations
             modelBuilder.Entity("AngularAPI.Models.Movie", b =>
                 {
                     b.HasOne("AngularAPI.Models.City", "City")
-                        .WithMany("Movies")
+                        .WithMany()
                         .HasForeignKey("CityID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -122,9 +176,34 @@ namespace AngularAPI.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("AngularAPI.Models.City", b =>
+            modelBuilder.Entity("AngularAPI.Models.Screens", b =>
                 {
-                    b.Navigation("Movies");
+                    b.HasOne("AngularAPI.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AngularAPI.Models.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("AngularAPI.Models.Theater", b =>
+                {
+                    b.HasOne("AngularAPI.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
                 });
 #pragma warning restore 612, 618
         }

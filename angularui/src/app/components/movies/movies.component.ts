@@ -74,11 +74,17 @@ export class MoviesComponent implements OnInit {
   }
 
   bookTicket(movieId: number) {
-    // Implement the logic to book tickets for the selected movie
-    // You can navigate to the theaters component with the movie ID as a parameter
-    console.log('movieID:', movieId);
-  this.router.navigate(['theaters', movieId]);
+    // Find the selected movie by its ID
+    const selectedMovie = this.movies.find((movie: any) => movie.movieID === movieId);
     
+    if (selectedMovie) {
+      const movieName = selectedMovie.title;
+      console.log(`Selected Movie ID: ${movieId}, Movie Name: ${movieName}`);
+      // You can now navigate to the theaters component with the movie ID as a parameter
+      this.router.navigate(['theaters', movieId], { queryParams: { movieName } });
+    } else {
+      console.error(`Movie with ID ${movieId} not found.`);
+    }
   }
   }
   

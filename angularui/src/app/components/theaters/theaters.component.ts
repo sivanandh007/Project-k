@@ -1,8 +1,9 @@
 // theaters.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TheaterService } from 'src/app/services/theaters.service';
 import * as moment from 'moment';
+import { MovieService } from 'src/app/services/movie.service';
 
 @Component({
   selector: 'app-theaters',
@@ -16,8 +17,13 @@ export class TheatersComponent implements OnInit {
   dates: string[] = [];
   selectedDate: string = moment().format('DD MMM ddd');
   showTimes: string[] = [];
+  movieName: string = '';
+  
 
-  constructor(private theaterService: TheaterService, private route: ActivatedRoute) {}
+  
+  
+
+  constructor(private theaterService: TheaterService, private route: ActivatedRoute, private router:Router, private movieService:MovieService) {}
 
   ngOnInit(): void {
     this.generateDates();
@@ -59,7 +65,7 @@ export class TheatersComponent implements OnInit {
       if (currentTime.isBefore(showTime)) {
         showTimes.push(showTime.format('h:mm A'));
       }
-      showTime = showTime.add(230, 'minutes'); // Increment by 2 hours for the next show
+      showTime = showTime.add(230, 'minutes'); // Increment shows
     }
 
     return showTimes;
@@ -87,6 +93,17 @@ export class TheatersComponent implements OnInit {
             if (Array.isArray(data.$values)) {
               this.theaters = data.$values;
               this.filteredTheaters = this.theaters;
+
+              // Fetch movie details and set the movieName
+              this.movieService.getMoviesByCity(movieId).subscribe(
+                (selectedMovie: any) => {
+                  this.movieName = selectedMovie.title;
+                  
+                },
+                (movieError) => {
+                  console.error('Error fetching movie details:', movieError);
+                }
+              );
             } else {
               console.error('Unexpected data structure:', data);
             }
@@ -102,8 +119,11 @@ export class TheatersComponent implements OnInit {
       console.error('movieId is null.');
     }
   }
+  handleShowTimeClick(time: string, theaterName: string , movieName:string) {
+    console.log(`You  have Booked  the show  at ${theaterName}: ${time}`);
+    const queryParams = { date: this.selectedDate, time,theaterName,movieName };
 
-  handleShowTimeClick(time: string) {
-    console.log(`You clicked on the show time: ${time}`);
-  }
+    // Navigate to the BookingComponent with the selected date, time, and theater name as parameters
+    this.router.navigate(['/booking'], { queryParams });
+}
 }

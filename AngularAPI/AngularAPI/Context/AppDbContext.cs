@@ -21,6 +21,8 @@ namespace AngularAPI.Context
 
         public DbSet<Screens> Screens { get; set; }
 
+        public DbSet<Seating> Seating { get; set; }
+
 
 
 
@@ -31,6 +33,7 @@ namespace AngularAPI.Context
             modelbuilder.Entity<Movie>().ToTable("movies");
             modelbuilder.Entity<Theater>().ToTable("Theaters");
             modelbuilder.Entity<Screens>().ToTable("Screens");
+            modelbuilder.Entity<Seating>().ToTable("Seatings");
             
         }
 

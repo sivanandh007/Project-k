@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { authGaurd } from './gaurds/auth.guard';
 import { MoviesComponent } from './components/movies/movies.component';
 import { TheatersComponent } from './components/theaters/theaters.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'movies/:cityID', component: MoviesComponent  },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'theaters/:movieId', component: TheatersComponent },
+  { path: 'booking', component: BookingComponent },
 ];
 
 @NgModule({

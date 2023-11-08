@@ -19,5 +19,8 @@ namespace AngularAPI.Models
 
         [ForeignKey("TheaterId")]
         public Theater Theater { get; set; }
+
+        public List<Seating> seatings { get; set; }
+
     }
 }

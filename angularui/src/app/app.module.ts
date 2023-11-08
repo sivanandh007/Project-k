@@ -12,6 +12,7 @@ import { MoviesComponent } from './components/movies/movies.component';
 import { MovieService } from 'src/app/services/movie.service';
 import { CommonModule } from '@angular/common';
 import { TheatersComponent } from './components/theaters/theaters.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TheatersComponent } from './components/theaters/theaters.component';
     SignupComponent,
     DashboardComponent,
     MoviesComponent,
-    TheatersComponent
+    TheatersComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,

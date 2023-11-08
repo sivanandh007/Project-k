@@ -40,12 +40,12 @@
         <p>Show Times:</p>
         <div class="show-time-buttons">
           <button
-            *ngFor="let time of showTimes"
-            class="show-time-button"
-            (click)="handleShowTimeClick(time)"
-          >
-            {{ time }}
-          </button>
+  *ngFor="let time of showTimes"
+  class="show-time-button"
+  (click)="handleShowTimeClick(time, theater.theaterName, movieName)"
+>
+  {{ time }}
+</button>
         </div>
       </div>
     </div>

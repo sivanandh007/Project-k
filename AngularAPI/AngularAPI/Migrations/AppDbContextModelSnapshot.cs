@@ -103,6 +103,39 @@ namespace AngularAPI.Migrations
                     b.ToTable("Screens", (string)null);
                 });
 
+            modelBuilder.Entity("AngularAPI.Models.Seating", b =>
+                {
+                    b.Property<int>("SeatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ScreenId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ScreensScreenId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SeatType")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isBooked")
+                        .HasColumnType("bit");
+
+                    b.HasKey("SeatId");
+
+                    b.HasIndex("ScreensScreenId");
+
+                    b.ToTable("Seatings", (string)null);
+                });
+
             modelBuilder.Entity("AngularAPI.Models.Theater", b =>
                 {
                     b.Property<int>("TheaterId")
@@ -195,6 +228,15 @@ namespace AngularAPI.Migrations
                     b.Navigation("Theater");
                 });
 
+            modelBuilder.Entity("AngularAPI.Models.Seating", b =>
+                {
+                    b.HasOne("AngularAPI.Models.Screens", "Screens")
+                        .WithMany("seatings")
+                        .HasForeignKey("ScreensScreenId");
+
+                    b.Navigation("Screens");
+                });
+
             modelBuilder.Entity("AngularAPI.Models.Theater", b =>
                 {
                     b.HasOne("AngularAPI.Models.City", "City")
@@ -204,6 +246,11 @@ namespace AngularAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("AngularAPI.Models.Screens", b =>
+                {
+                    b.Navigation("seatings");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,7 @@ import { MovieService } from 'src/app/services/movie.service';
 import { CommonModule } from '@angular/common';
 import { TheatersComponent } from './components/theaters/theaters.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BookingComponent } from './components/booking/booking.component';
     DashboardComponent,
     MoviesComponent,
     TheatersComponent,
-    BookingComponent
+    BookingComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,

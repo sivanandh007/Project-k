@@ -7,6 +7,7 @@ import { authGaurd } from './gaurds/auth.guard';
 import { MoviesComponent } from './components/movies/movies.component';
 import { TheatersComponent } from './components/theaters/theaters.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/signup', pathMatch: 'full' },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'theaters/:movieId', component: TheatersComponent },
   { path: 'booking', component: BookingComponent },
+  { path: 'confirmation', component: ConfirmationComponent},
+  {path: 'dashboard', component: DashboardComponent,canActivate:[authGaurd]}
 ];
 
 @NgModule({

@@ -1,0 +1,48 @@
+.confirmation {
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .confirmation h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .confirmation-details {
+    margin-top: 20px;
+  }
+  
+  .confirmation-details p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .confirmation-details ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .confirmation-details li {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .print-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .print-button:hover {
+    background-color: #0056b3;
+  }
+  

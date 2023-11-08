@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TheaterService } from 'src/app/services/theaters.service';
 
 interface Seat {
@@ -24,6 +24,7 @@ export class BookingComponent {
   selectedDate: string = '';
   selectedTime: string = '';
   theaterName: string = '';
+  movieName: string='';
 
   sections: any[] = [
     {
@@ -52,13 +53,14 @@ export class BookingComponent {
     }
   ];
 
-  constructor(private theaterService:TheaterService, private route:ActivatedRoute) {
+  constructor(private theaterService:TheaterService, private route:ActivatedRoute, private router:Router) {
     this.initializeSeats();
     // Initialize seats based on sections
     this.route.queryParams.subscribe((params) => {
       this.selectedDate = params['date'] || '';
       this.selectedTime = params['time'] || '';
       this.theaterName = params['theaterName'] || '';
+      this.movieName=params['movieName'] || '';
       this.initializeSeats(); // Initialize seats based on theaterName if needed
     });
   }
@@ -234,10 +236,12 @@ export class BookingComponent {
       .join('\n');
 
     if (selectedSeatsText) {
+      
       console.log(`You have Booked the Show At ${this.theaterName}`);
       console.log(`Selected Seats:\n${selectedSeatsText}`);
       console.log(`Selected Date: ${this.selectedDate}, Selected Time: ${this.selectedTime}`);
       console.log(`Total Fare: ${totalFare}`);
+      this.router.navigate(['/confirmation']);
     } else {
       console.log('No seats selected.');
     }

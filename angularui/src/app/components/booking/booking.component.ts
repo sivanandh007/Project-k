@@ -1,5 +1,7 @@
+import { TmplAstDeferredBlockLoading } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BookingDataService } from 'src/app/services/booking-data.service';
 import { TheaterService } from 'src/app/services/theaters.service';
 
 interface Seat {
@@ -25,6 +27,7 @@ export class BookingComponent {
   selectedTime: string = '';
   theaterName: string = '';
   movieName: string='';
+  selectedSeatText='';
 
   sections: any[] = [
     {
@@ -53,14 +56,15 @@ export class BookingComponent {
     }
   ];
 
-  constructor(private theaterService:TheaterService, private route:ActivatedRoute, private router:Router) {
+  constructor(private theaterService:TheaterService, private route:ActivatedRoute, private router:Router,private bookingDataService:BookingDataService) {
     this.initializeSeats();
     // Initialize seats based on sections
     this.route.queryParams.subscribe((params) => {
       this.selectedDate = params['date'] || '';
       this.selectedTime = params['time'] || '';
       this.theaterName = params['theaterName'] || '';
-      this.movieName=params['movieName'] || '';
+      this.movieName = params['movieName'] || '';
+      console.log('Movie Name in BookingComponent:', this.movieName);
       this.initializeSeats(); // Initialize seats based on theaterName if needed
     });
   }
@@ -216,35 +220,48 @@ export class BookingComponent {
   isProceedButtonEnabled(): boolean {
     return this.numSelectedSeats() === this.numTickets;
   }
-  proceedBooking(): void {
-    const selectedSeatsBySection: { [section: string]: string[] } = {};
-    const totalFare = this.totalFare;
-    this.lockSelectedSeats();
+    proceedBooking(): void {
+      const selectedSeatsBySection: { [section: string]: string[] } = {};
+      const totalFare = this.totalFare;
+      this.lockSelectedSeats();
 
-    for (const seat of this.seats) {
-      if (seat.selected) {
-        const seatIdentifier = `${this.theaterName}-${seat.row}-${seat.number}`;
-        if (!selectedSeatsBySection[seat.section]) {
-          selectedSeatsBySection[seat.section] = [];
+      
+
+      for (const seat of this.seats) {
+        if (seat.selected) {
+          const seatIdentifier = `${seat.row}-${seat.number}`;
+          if (!selectedSeatsBySection[seat.section]) {
+            selectedSeatsBySection[seat.section] = [];
+          }
+          selectedSeatsBySection[seat.section].push(seatIdentifier);
         }
-        selectedSeatsBySection[seat.section].push(seatIdentifier);
+      }
+
+      const selectedSeatsText = Object.entries(selectedSeatsBySection)
+        .map(([section, seats]) => `${section}: ${seats.join(', ')}`)
+        .join('\n');
+
+      if (selectedSeatsText) {
+
+        this.bookingDataService.setBookingDetails({
+          movieName: this.movieName,
+          theaterName: this.theaterName,
+          selectedSeatsText: selectedSeatsText,
+          selectedDate: this.selectedDate,
+          selectedTime: this.selectedTime,
+          totalFare: totalFare,
+          
+        });
+        console.log(`You have Booked the Show At ${this.theaterName}`);
+        console.log(`Selected Seats:${selectedSeatsText}`);
+        console.log(`Selected Date: ${this.selectedDate}, Selected Time: ${this.selectedTime}`);
+        console.log(`Total Fare: ${totalFare}`);
+        console.log(this.movieName);
+
+        this.router.navigate(['/confirmation']);
+      } else {
+        console.log('No seats selected.');
       }
     }
-
-    const selectedSeatsText = Object.entries(selectedSeatsBySection)
-      .map(([section, seats]) => `${section}: ${seats.join(', ')}`)
-      .join('\n');
-
-    if (selectedSeatsText) {
-      
-      console.log(`You have Booked the Show At ${this.theaterName}`);
-      console.log(`Selected Seats:\n${selectedSeatsText}`);
-      console.log(`Selected Date: ${this.selectedDate}, Selected Time: ${this.selectedTime}`);
-      console.log(`Total Fare: ${totalFare}`);
-      this.router.navigate(['/confirmation']);
-    } else {
-      console.log('No seats selected.');
-    }
-  }
   
 }

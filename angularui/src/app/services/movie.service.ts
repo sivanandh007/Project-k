@@ -17,4 +17,8 @@ export class MovieService {
     return this.http.get(url);
     
   }
+  getMovieById(id: number)  {
+    const url = `${this.baseUrl}/api/Movie/${id}`;
+    return this.http.get(url); 
+  }
 }

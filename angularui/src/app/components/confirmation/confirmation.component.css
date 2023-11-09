@@ -1,48 +1,63 @@
-.confirmation {
-    text-align: center;
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
+/* confirmation.component.css */
+
+.container {
+  max-width: 600px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  color: #007bff;
+}
+
+.confirmation-details {
+  text-align: center;
+}
+
+.details {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  border: none;
+  padding: 8px;
+  background-color: #f8f9fa;
+}
+
+.list-group-item:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
   
-  .confirmation h2 {
-    font-size: 24px;
-    color: #333;
+
+@media print {
+  .btn-primary {
+    display: none !important;
   }
-  
-  .confirmation-details {
-    margin-top: 20px;
-  }
-  
-  .confirmation-details p {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  .confirmation-details ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .confirmation-details li {
-    font-size: 16px;
-    margin: 5px 0;
-  }
-  
-  .print-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-  }
-  
-  .print-button:hover {
-    background-color: #0056b3;
-  }
-  
+}

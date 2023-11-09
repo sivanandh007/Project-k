@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BookingDataService } from 'src/app/services/booking-data.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -7,36 +8,35 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./confirmation.component.css']
 })
 export class ConfirmationComponent implements OnInit {
-  movieName: string = '';
-  theaterName: string = '';
-  selectedDate: string = '';
-  selectedTime: string = '';
-  selectedSeats: string[] = [];
-  totalFare: number = 0;
+  movieName: string = ''; // Declare movieName property
+  theaterName: string = ''; // Declare theaterName property
+  selectedDate: string = ''; // Declare selectedDate property
+  selectedTime: string = ''; // Declare selectedTime property
+  selectedSeatsText: string = ''; // Declare selectedSeats property
+  totalFare: number = 0; // Declare totalFare property
+  bookingDetails: any;
 
-  constructor(private route: ActivatedRoute,private router:Router) {}
+  constructor(private route: ActivatedRoute,private router:Router,private bookingDataService:BookingDataService) {}
 
   ngOnInit(): void {
-    // Retrieve data from the route parameters
-    this.router.navigate(['/confirmation'], {
-      queryParams: {
-        movieName: this.movieName,
-        theaterName: this.theaterName,
-        date: this.selectedDate,
-        time: this.selectedTime,
-        seats: this.selectedSeats.join(','), // Convert seats array to a comma-separated string
-        totalFare: this.totalFare,
-      }
+    // Subscribe to the booking details
+    this.bookingDataService.bookingDetails$.subscribe((details) => {
+      // Assign values to the properties
+      this.movieName = details.movieName
+      this.theaterName = details.theaterName;
+      this.selectedDate = details.selectedDate;
+      this.selectedTime = details.selectedTime;
+      this.selectedSeatsText = details.selectedSeatsText;
+      this.totalFare = details.totalFare;
+      console.log(this.selectedSeatsText)
       
     });
-    
-    
-    // In ConfirmationComponent
-    console.log(this.movieName, this.theaterName, this.selectedDate, this.selectedTime, this.selectedSeats, this.totalFare);
   }
   printConfirmation() {
     window.print();
     this.router.navigate(['/dashboard']);
     
   }
+
+  
 }

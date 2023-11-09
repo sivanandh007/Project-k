@@ -16,6 +16,7 @@ export class MoviesComponent implements OnInit {
   movieFilter: string = '';
   selectedLanguage: string = '';
   movieId: number | null = null;
+  movieName: string='';
   
 
   // Define a mapping of city IDs to city names
@@ -34,6 +35,7 @@ export class MoviesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     const cityIDParam = this.route.snapshot.paramMap.get('cityID');
     this.selectedCityID = cityIDParam ? +cityIDParam : 0;
 

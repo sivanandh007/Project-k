@@ -18,10 +18,6 @@ export class TheatersComponent implements OnInit {
   selectedDate: string = moment().format('DD MMM ddd');
   showTimes: string[] = [];
   movieName: string = '';
-  
-
-  
-  
 
   constructor(private theaterService: TheaterService, private route: ActivatedRoute, private router:Router, private movieService:MovieService) {}
 
@@ -93,17 +89,9 @@ export class TheatersComponent implements OnInit {
             if (Array.isArray(data.$values)) {
               this.theaters = data.$values;
               this.filteredTheaters = this.theaters;
-
-              // Fetch movie details and set the movieName
-              this.movieService.getMoviesByCity(movieId).subscribe(
-                (selectedMovie: any) => {
-                  this.movieName = selectedMovie.title;
-                  
-                },
-                (movieError) => {
-                  console.error('Error fetching movie details:', movieError);
-                }
-              );
+  
+              // Fetch movie details asynchronously and set the movieName
+              this.getMovieDetails(movieId);
             } else {
               console.error('Unexpected data structure:', data);
             }
@@ -119,10 +107,23 @@ export class TheatersComponent implements OnInit {
       console.error('movieId is null.');
     }
   }
-  handleShowTimeClick(time: string, theaterName: string , movieName:string) {
+  
+  getMovieDetails(movieId: number) {
+    this.movieService.getMovieById(movieId).subscribe(
+      (selectedMovie: any) => {
+        this.movieName = selectedMovie.title;
+        console.log(this.movieName);
+      },
+      (movieError) => {
+        console.error('Error fetching movie details:', movieError);
+      }
+    );
+  }
+  
+
+   handleShowTimeClick(time: string, theaterName: string , movieName:string) {
     console.log(`You  have Booked  the show  at ${theaterName}: ${time}`);
     const queryParams = { date: this.selectedDate, time,theaterName,movieName };
-
     // Navigate to the BookingComponent with the selected date, time, and theater name as parameters
     this.router.navigate(['/booking'], { queryParams });
 }

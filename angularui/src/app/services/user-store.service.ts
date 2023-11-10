@@ -14,7 +14,7 @@ public getFullNameFromStore(){
   }
 
   public setFullNameForStore(fullname:string){
-    this.fullName$.next(fullname)
-    
+    this.fullName$.next(fullname)  
   }
+
 }

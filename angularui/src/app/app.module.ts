@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { TheatersComponent } from './components/theaters/theaters.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { UserStoreService } from './services/user-store.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
   ],
   providers: [
     MovieService,
+    UserStoreService
   ],
   bootstrap: [AppComponent]
 })

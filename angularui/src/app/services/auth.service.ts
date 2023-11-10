@@ -53,8 +53,7 @@ export class AuthService {
 
   getfullNameFromToken(){
     if(this.userPayload)
-    return this.userPayload.name;
+    return this.userPayload.unique_name;
   }
-
 
 }

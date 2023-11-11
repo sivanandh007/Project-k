@@ -22,6 +22,37 @@ namespace AngularAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AngularAPI.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("MovieName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedSeatsText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TheaterName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalFare")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookingInfo", (string)null);
+                });
+
             modelBuilder.Entity("AngularAPI.Models.City", b =>
                 {
                     b.Property<int>("CityID")
@@ -117,9 +148,6 @@ namespace AngularAPI.Migrations
                     b.Property<int>("ScreenId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ScreensScreenId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SeatName")
                         .HasColumnType("nvarchar(max)");
 
@@ -131,7 +159,7 @@ namespace AngularAPI.Migrations
 
                     b.HasKey("SeatId");
 
-                    b.HasIndex("ScreensScreenId");
+                    b.HasIndex("ScreenId");
 
                     b.ToTable("Seatings", (string)null);
                 });
@@ -232,7 +260,9 @@ namespace AngularAPI.Migrations
                 {
                     b.HasOne("AngularAPI.Models.Screens", "Screens")
                         .WithMany("seatings")
-                        .HasForeignKey("ScreensScreenId");
+                        .HasForeignKey("ScreenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Screens");
                 });

@@ -56,7 +56,10 @@ export class BookingComponent {
     }
   ];
 
-  constructor(private theaterService:TheaterService, private route:ActivatedRoute, private router:Router,private bookingDataService:BookingDataService) {
+  constructor(private theaterService:TheaterService, 
+    private route:ActivatedRoute, 
+    private router:Router,
+    private bookingDataService:BookingDataService) {
     this.initializeSeats();
     // Initialize seats based on sections
     this.route.queryParams.subscribe((params) => {
@@ -252,13 +255,24 @@ export class BookingComponent {
           totalFare: totalFare,
           
         });
-        console.log(`You have Booked the Show At ${this.theaterName}`);
-        console.log(`Selected Seats:${selectedSeatsText}`);
-        console.log(`Selected Date: ${this.selectedDate}, Selected Time: ${this.selectedTime}`);
-        console.log(`Total Fare: ${totalFare}`);
-        console.log(this.movieName);
 
-        this.router.navigate(['/confirmation']);
+        this.bookingDataService.sendBookingDetailsToBackend({
+          movieName: this.movieName,
+          theaterName: this.theaterName,
+          selectedSeatsText: selectedSeatsText,
+          selectedDate: this.selectedDate,
+          selectedTime: this.selectedTime,
+          totalFare: totalFare,
+        }).subscribe(
+          (response) => {
+            console.log('Booking details sent to the backend successfully', response);
+            // Optionally, you can navigate to the confirmation page here
+            this.router.navigate(['/confirmation']);
+          },
+          (error) => {
+            console.error('Error sending booking details to the backend', error);
+          }
+        );
       } else {
         console.log('No seats selected.');
       }

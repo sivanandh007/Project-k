@@ -23,6 +23,8 @@ namespace AngularAPI.Context
 
         public DbSet<Seating> Seating { get; set; }
 
+        public DbSet<Booking> Bookings { get; set; }
+
 
 
 
@@ -34,7 +36,8 @@ namespace AngularAPI.Context
             modelbuilder.Entity<Theater>().ToTable("Theaters");
             modelbuilder.Entity<Screens>().ToTable("Screens");
             modelbuilder.Entity<Seating>().ToTable("Seatings");
-            
+            modelbuilder.Entity<Booking>().ToTable("BookingInfo");
+
         }
 
 

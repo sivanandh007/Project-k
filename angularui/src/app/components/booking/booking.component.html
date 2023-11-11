@@ -15,13 +15,9 @@
     <div class="total-fare">
       Total Fare: &#8377;{{ totalFare }}
     </div>
-    <button
-  class="proceed-button"
-  (click)="proceedBooking()"
-  [disabled]="!isProceedButtonEnabled()"
->
-  Proceed
-</button>
+    <button  class="proceed-button"(click)="proceedBooking()"[disabled]="!isProceedButtonEnabled()">
+    Proceed
+   </button>
   </nav>
 
   <div class="section">

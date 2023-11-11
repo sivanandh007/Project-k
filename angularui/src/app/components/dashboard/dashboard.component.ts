@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
   cityFilter: string = '';
   public users: any[] = [];
   public fullName: string = '';
-
+  
   constructor(
     private cityService: CityService,
     private auth: AuthService,

@@ -1,4 +1,6 @@
 /* Set a background image with a movie theme */
+
+
 .outer {
     height: 100vh;
     background:url('image.png') center/cover no-repeat;

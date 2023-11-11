@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class CityService {
   constructor(private http: HttpClient) {}
 
-  // Define the API endpoint to fetch city names from the backend
+  //  API endpoint to fetch city names from the backend
   private cityApiUrl = 'https://localhost:44348/api/cities/';
 
   // Fetch city names

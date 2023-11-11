@@ -1,8 +1,9 @@
-import { TmplAstDeferredBlockLoading } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingDataService } from 'src/app/services/booking-data.service';
 import { TheaterService } from 'src/app/services/theaters.service';
+import { UserStoreService } from 'src/app/services/user-store.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface Seat {
   section: string;
@@ -28,6 +29,7 @@ export class BookingComponent {
   theaterName: string = '';
   movieName: string='';
   selectedSeatText='';
+  public fullName: string = '';
 
   sections: any[] = [
     {
@@ -59,7 +61,9 @@ export class BookingComponent {
   constructor(private theaterService:TheaterService, 
     private route:ActivatedRoute, 
     private router:Router,
-    private bookingDataService:BookingDataService) {
+    private bookingDataService:BookingDataService,
+    private auth: AuthService,
+    private userstore: UserStoreService,) {
     this.initializeSeats();
     // Initialize seats based on sections
     this.route.queryParams.subscribe((params) => {
@@ -67,6 +71,11 @@ export class BookingComponent {
       this.selectedTime = params['time'] || '';
       this.theaterName = params['theaterName'] || '';
       this.movieName = params['movieName'] || '';
+      this.userstore.setFullNameForStore(this.auth.getfullNameFromToken());
+    this.userstore.getFullNameFromStore().subscribe(val => {
+      this.fullName = val ;
+      console.log(this.fullName)
+    });
       console.log('Movie Name in BookingComponent:', this.movieName);
       this.initializeSeats(); // Initialize seats based on theaterName if needed
     });
@@ -253,16 +262,18 @@ export class BookingComponent {
           selectedDate: this.selectedDate,
           selectedTime: this.selectedTime,
           totalFare: totalFare,
-          
+          fullName:this.fullName
         });
 
         this.bookingDataService.sendBookingDetailsToBackend({
+          Name:this.fullName,
           movieName: this.movieName,
           theaterName: this.theaterName,
           selectedSeatsText: selectedSeatsText,
           selectedDate: this.selectedDate,
           selectedTime: this.selectedTime,
           totalFare: totalFare,
+          
         }).subscribe(
           (response) => {
             console.log('Booking details sent to the backend successfully', response);

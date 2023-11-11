@@ -15,6 +15,7 @@ import { TheatersComponent } from './components/theaters/theaters.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { UserStoreService } from './services/user-store.service';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { UserStoreService } from './services/user-store.service';
   ],
   providers: [
     MovieService,
-    UserStoreService
+    UserStoreService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

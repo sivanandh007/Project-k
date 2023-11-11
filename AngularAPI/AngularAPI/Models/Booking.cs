@@ -8,6 +8,9 @@ namespace AngularAPI.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public string Name { get; set; }
+
         public string MovieName { get; set; }
         public string TheaterName { get; set; }
         public string SelectedSeatsText { get; set; }

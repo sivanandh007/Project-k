@@ -15,11 +15,10 @@
     <button (click)="logout()" class="btn btn-danger ml-auto">Log Out</button>
   </div>
 </nav>
-
 <div class="container">
   <h2>Select a City</h2>
   <div class="row">
-    <div class="col-md-4" *ngFor="let city of filteredCities">
+    <div class="col-md-2" *ngFor="let city of filteredCities">
       <button class="btn btn-primary city-button" (click)="selectCity(city)">{{ city.cityName }}</button>
     </div>
   </div>
